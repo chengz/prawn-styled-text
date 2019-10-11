@@ -1,7 +1,7 @@
 require 'prawn'
 
 Prawn::Document.class_eval do
-  def styled_text( data )
+  def styled_text( data, box = false, box_options = {} )
     parts = []
     text_options = {}
     extra_options = { margin_left: 0 }
@@ -72,6 +72,10 @@ Prawn::Document.class_eval do
         end
       end
     end
-    self.formatted_text parts, text_options
+    if box
+      self.formatted_text_box parts, text_options.merge(box_options)
+    else
+      self.formatted_text parts, text_options
+    end
   end
 end
